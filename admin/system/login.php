@@ -1,0 +1,20 @@
+<?php
+if($_GET['aksi']=='auth'){
+    $sukses_login=false;
+    $username=$_POST['username'];
+    $password=$_POST['password'];
+    if($username=='admin' && $password=='admin'){
+        $sukses_login=true;
+        $_SESSION['username']=$username;
+        $_SESSION['password']=$password;
+        $_SESSION['login']="login_admin";
+        header('location:../admin?page=beranda');
+    }else{
+        $_SESSION['status_login']="gagal";
+        header("location:?pag=login");
+    }
+}elseif($_GET['aksi']=='logout'){
+    session_destroy();
+    header('location:?pag=login');
+}
+?>
