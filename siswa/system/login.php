@@ -10,7 +10,7 @@ if($_GET['aksi']=='auth'){
         $_SESSION['username']=$username;
         $_SESSION['password']=$password;
         $_SESSION['login']="login_siswa";
-        header('location:../siswa/?page=beranda');
+        header('location:../siswa?page=beranda');
     }else{
         $_SESSION['status_login']="gagal";
         header("location:?pag=login");
