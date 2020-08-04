@@ -1,35 +1,42 @@
 
 
 <div class="row">
-<div class="col-md-6">
+    <?php
+    $id_materi=$_GET['id_materi'];
+    $j=$diskusi->tampildiskusi($con,$id_materi);
+    foreach($j as $jd)
+    {
+    
+    ?>
+<div class="col-md-8">
           <!-- Box Comment -->
-          <div class="box box-widget">
+          <div class="box box-widget box-primary">
             <div class="box-header with-border">
               <div class="user-block">
                 <img class="img-circle" src="img/user0.png" alt="User Image">
                 <span class="username"><a href="#"> 
-                            <?php 
-                            if ($dis['tipe'] == "0")
-                            {
-                                $d=$diskusi->gururp($con,$dis['id_user']);
-                                echo $d['nm_guru'];
-                            }else
-                            {
-                                $d=$diskusi->siswarp($con,$dis['id_user']);
-                                echo $d['nm_siswa'];
-                            }
-                            ?></a></span>
-                <span class="description">Memulai Diskusi - <?php echo sejak($dis['wkt_post']); ?> </span>
+                    
+                    <?php 
+                    $tipe=$jd['tipe'];
+                    $id_user = $jd['id_user'];
+                    $nama=$diskusi->nmdiskusi($con,$tipe,$id_user);
+                    echo $nama[0];
+                    ?>
+                    
+                            </a></span>
+                <span class="description">Memulai Diskusi - <?php echo sejak($jd['wkt_post']); ?> </span>
               </div>
               <!-- /.user-block -->
-              
+              <div class="box-tools">
+                <button type="btn btn-box-tool" data-toogle="tooltip" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
               <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <!-- post text -->
-              <p><?=$dis['isi']?></p>
-
+              <p><?=$jd['isi']?></p>
+                
               
 
               <!-- Attachment -->
@@ -37,24 +44,24 @@
                 <img class="attachment-img" src="img/materi0.png" alt="Attachment Image">
 
                 <div class="attachment-pushed">
-                  <h4 class="attachment-heading"><a href="?p=detail&id=<?=$dis['id_materi']?>"><?=$dis['judul']?> Kelas : <?=$dis['nm_kelas']?></a></h4>
-                    <h6 class="attachment-heading text-muted"><?php echo sejak($dis['wkt_materi']);?></h6>
+                  <h4 class="attachment-heading"><a href="?p=detail&id=<?=$jd['id_materi']?>"><?=$jd['judul']?> Kelas : <?=$jd['nm_kelas']?></a></h4>
+                    <h6 class="attachment-heading text-muted"><?php echo sejak($jd['wkt_materi']);?></h6>
 
                   <div class="attachment-text">
-                    <?=$dis['ket']?>
+                    <?=$jd['ket']?>
                   </div>
                     <br>
                     <div class="attachment-footer">
-                    <?php if (!empty($dis['file'])){ ?>
-                    <a href="upload/<?php echo $dis['file']; ?>" class="btn-sm btn-success"><i class="fa fa-download"></i> Download Materi</a>
+                    <?php if (!empty($jd['file'])){ ?>
+                    <a href="upload/<?php echo $dis['file']; ?>" class="btn-sm btn-success"><i class="fa fa-download"></i> <?php echo $dis['file']; ?></a>
                         
                     <?php
                                                    }
                       else { echo ""; }
                                                     
-                            if(!empty($dis['link']))
+                            if(!empty($jd['link']))
                             {
-                                echo '<a href="'.$dis['link'].'" class="btn-sm btn-warning"><i class="fa fa-link"></i> Link</a>';
+                                echo '<a href="'.$jd['link'].'" class="btn-sm btn-warning"><i class="fa fa-link"></i> Link</a>';
                             }else
                             {
                                 echo "";
@@ -72,14 +79,14 @@
               <!-- 
               <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
               <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>-->
-              <span class="pull-right text-muted"><?php echo $jml_reply['jml']; ?> Komentar</span>
+              <span class="pull-right text-muted"><?php $jum=$diskusi->hitungreply($con,$jd['id_post']); echo $jum[0]; ?> Komentar</span>
             </div>
               
               
             <!-- /.box-body -->
             <div class="box-footer box-comments">
                 <?php 
-                    $id_post=$dis['id_post'];
+                    $id_post=$jd['id_post'];
                     $dt=$diskusi->tpreply($con,$id_post);
                     if (empty($dt))
                     {
@@ -98,16 +105,10 @@
                 <div class="comment-text">
                       <span class="username">
                          <?php 
-                                 
-                            if ($rp['tipe'] == "0")
-                            {
-                                $d=$diskusi->gururp($con,$rp['id_user']);
-                                echo $d['nm_guru'];
-                            }else
-                            {
-                                $d=$diskusi->siswarp($con,$rp['id_user']);
-                                echo $d['nm_siswa'];
-                            }
+                            $id_user=$rp['id_user']; 
+                            $tipe=$rp['tipe'];
+                            $nm=$diskusi->nmdiskusi($con,$tipe,$id_user);
+                            echo $nm[0];
                           ?>
                         <span class="text-muted pull-right"><?php echo sejak($rp['time']);?></span>
                       </span><!-- /.username -->
@@ -126,6 +127,7 @@
                 <!-- .img-push is used to add margin to elements next to floating images -->
                 <div class="img-push">
                    <input type="hidden" name="id_user" value="<?php echo $aktif['id_guru']; ?>">
+                    <input name="id_post" type="hidden" value="<?php echo $jd['id_post']; ?>">
                   <input type="text" class="form-control input-sm" name="reply" placeholder="Press enter to post comment">
                 </div>
               </form>
@@ -133,6 +135,6 @@
             <!-- /.box-footer -->
           </div>
           <!-- /.box -->
-        </div>
+        </div><?php } ?>
         <!-- /.col -->
       </div>

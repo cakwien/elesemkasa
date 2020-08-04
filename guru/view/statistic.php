@@ -53,10 +53,10 @@
               <span title="Jumlah Materi" class="btn-xs btn-success pull-left"><i class="fa fa-tasks"></i> <?=$jmlmat['jumlah_materi']?></span>  
               
                 <?php 
-                  $jum=$diskusi->jmlpercakapan($con,$dt['id_ampu']);
-                    if ($jum['jml'] > 0)
+                  $jum=$diskusi->hitungdiskusibymateri($con,$dt['id_ampu']);
+                    if ($jum[0] > 0)
                     {
-                        echo '<span title="Jumlah Percakapan Diskusi" class="btn-xs btn-danger pull-right"><i class="fa fa-commenting"></i>'.$jum['jml'].'</span> ';
+                        echo '<span title="Jumlah Percakapan Diskusi" class="btn-xs btn-danger pull-right"><i class="fa fa-commenting"></i> '.$jum[0].'</span> ';
                     }else
                     {
                         echo "";

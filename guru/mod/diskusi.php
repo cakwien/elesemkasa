@@ -11,6 +11,37 @@ class diskusi
         return $dt;
     }
     
+    function tampildiskusi($con,$id_materi)
+    {
+        $list=array();
+        $q=mysqli_query($con,"select post.id_post,post.id_user, post.isi, post.time as wkt_post, post.tipe,materi.id_materi, materi.judul,materi.time as wkt_materi, materi.ket, materi.file, materi.link, kelas.id_kelas, kelas.nm_kelas from post join materi on post.id_materi = materi.id_materi join ampu on materi.id_ampu = ampu.id_ampu join kelas on ampu.id_kelas = kelas.id_kelas where materi.id_materi='$id_materi'");
+        while($dt=mysqli_fetch_array($q))
+        {
+            $list[]=$dt;
+        }
+        return $list;
+    }
+    
+    function nmdiskusi($con,$tipe,$id_user)
+    {
+        if ($tipe == 0)
+        {
+            $q=mysqli_query($con,"select nm_guru from guru as nama where id_guru = '$id_user'");
+            $dt=mysqli_fetch_array($q);
+            return $dt;
+        }else if ($tipe == 1)
+        {
+            $q=mysqli_query($con,"select nm_siswa from siswa as nama where id_siswa = '$id_user'");
+            $dt=mysqli_fetch_array($q);
+            return $dt;
+        }
+    }
+    
+    function tambahreply($con,$id_post,$id_user,$time,$isi,$tipe)
+    {
+        $q=mysqli_query($con,"insert into reply value('','$id_post','$id_user','$time','$isi','$tipe')");
+    }
+    
     function tpdiskusiall($con)
     {
         $q=mysqli_query($con,"Select * from post join guru on post.id_user guru.id_guru join materi on post.id_materi=materi.id_materi");
@@ -70,26 +101,7 @@ class diskusi
         
     }
     
-    function hitungreply($con,$id_post)
-    {
-        $q=mysqli_query($con,"select count(id_reply) as jml from reply where id_post='$id_post'");
-        $dt=mysqli_fetch_array($q);
-        return $dt;
-    }
-    
-    function gururp($con,$id_user)
-    {
-        $q=mysqli_query($con,"select nm_guru from  guru  where id_guru='$id_user'");
-        $dt=mysqli_fetch_array($q);
-        return $dt;
-    }
-    
-    function siswarp($con,$id_user)
-    {
-        $q=mysqli_query($con,"select nm_siswa  from siswa where id_siswa='$id_user'");
-        $dt=mysqli_fetch_array($q);
-        return $dt;
-    }
+   
     
     function carimateri($con,$id_materi)
     {
@@ -111,6 +123,27 @@ class diskusi
     function jmlpercakapan($con,$id_ampu)
     {
         $q=mysqli_query($con,"select count(id_reply) as jml from reply join post on reply.id_post = post.id_post join materi on post.id_materi = materi.id_materi join ampu on materi.id_ampu = ampu.id_ampu where ampu.id_ampu ='$id_ampu'");
+        $dt=mysqli_fetch_array($q);
+        return $dt;
+    }
+    
+    function hitungdiskusibymateri($con,$id_ampu)
+    {
+        $q=mysqli_query($con,"select count(id_post) from post join materi on post.id_materi = materi.id_materi join ampu on materi.id_ampu = ampu.id_ampu where materi.id_ampu = '$id_ampu'");
+         $dt=mysqli_fetch_array($q);
+        return $dt;
+    }
+    
+    function hitungreply($con,$id_post)
+    {
+        $q=mysqli_query($con,"select count(id_reply) as jmlreply from reply where id_post='$id_post'");
+        $dt=mysqli_fetch_array($q);
+        return $dt;
+    }
+    
+    function hitungdiskusi($con,$id_materi)
+    {
+        $q=mysqli_query($con,"select count(id_post) from post where id_materi='$id_materi'");
         $dt=mysqli_fetch_array($q);
         return $dt;
     }

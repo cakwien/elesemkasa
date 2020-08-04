@@ -25,7 +25,7 @@ class materi
         $q=mysqli_query($con,"insert into materi values('','$id_ampu','$judul','$ket','$jenis','$link','$berkas','$time','$expired','$sts')");
         if ($q)
         {
-            move_uploaded_file($tmp_files, 'upload/'.$berkas);
+            move_uploaded_file($tmp_files, '/file/'.$berkas);
             echo '<script>window.alert("Berhasil Tambah Materi");window.location.href="?p=mapel&id_ampu='.$id_ampu.'"</script>';
             
         }else
@@ -93,6 +93,13 @@ class materi
         mysqli_query($con,"update materi set sts='0' where id_materi='$id_materi'");
         header('location:?p=mapel&id_ampu='.$id_ampu.'');
         //echo'<script>window.history.back();</script>';
+    }
+    
+    function editmateri($con,$id_materi)
+    {
+        $q=mysqli_query($con,"select * from materi where id_materi = '$id_materi'");
+        $dt=mysqli_fetch_array($q);
+        return $dt;
     }
   
     

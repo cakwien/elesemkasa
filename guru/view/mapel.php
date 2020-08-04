@@ -38,7 +38,7 @@
                              <?php $cek=$materi->cekpost($con,$mt['id_materi']); if($cek['jml']<1){ ?>
                             <li role="presentation"><a role="menuitem"  href="?p=post&id=<?php echo $mt['id_materi'];?>"><i class="fa fa-commenting"></i>Buat Diskusi</a></li>
                             <?php } ?>
-                            <li role="presentation"><a role="menuitem"  href="#"><i class="fa fa-pencil"></i>Edit Materi</a></li>
+                            <li role="presentation"><a role="menuitem"  href="?p=materi&id_ampu=<?=$mt['id_ampu']?>&edit=<?=$mt['id_materi']?>"><i class="fa fa-pencil"></i>Edit Materi</a></li>
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="?p=mapel&id_ampu=<?=$mt['id_ampu']?>&hapus=<?=$mt['id_materi']?>"><i class="fa fa-trash"></i>Hapus Materi</a></li>
                         </ul>
                     </div>
@@ -50,9 +50,10 @@
             </div>
             <div class="box-footer">
                <?php $cek=$materi->cekpost($con,$mt['id_materi']); if($cek['jml']>0){ ?>
-                <a href="?p=diskusi&id_materi=<?=$mt['id_materi']?>" class="btn-sm btn-danger"><i class="fa fa-comments-o"></i> <?php $dt=$materi->jmlreply($con,$mt['id_materi']); echo $dt['jml'] + 1;?></a> 
+                <a title="Jumlah Diskusi Aktif" href="?p=diskusi&id_materi=<?=$mt['id_materi']?>" class="btn-sm btn-danger"><i class="fa fa-comments-o"></i> 
+                    <?php $jdis= $diskusi->hitungdiskusi($con,$mt['id_materi']); echo $jdis[0];?></a> 
                 <?php } ?>
-                <a class="btn-sm btn-warning"><i class="fa fa-eye"></i>  <?php $ntf=$notif->jml_lihatmateri($con,$mt['id_materi']); echo $ntf['jumlah']; ?></a> 
+                <a title="Jumlah Siswa yang sudah membuka materi ini" class="btn-sm btn-warning"><i class="fa fa-eye"></i>  <?php $ntf=$notif->jml_lihatmateri($con,$mt['id_materi']); echo $ntf['jumlah']; ?></a> 
                 <?php
                 if ($mt['sts'] == "0")
                 {   ?>

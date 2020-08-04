@@ -51,7 +51,7 @@
         <div class="box box-danger">
             <div class="box-header with-border">
                 <h4>PRESENSI MATERI SISWA</h4>
-               <a href="" class="btn-sm btn-primary"><i class="fa fa-file-excel-o"></i> Download Presensi</a>
+               <a href="view/rekappresensi.php?id_materi=<?php echo $det['id_materi'];?>&id_kelas=<?php echo $det['id_kelas']; ?>" class="btn-sm btn-primary"><i class="fa fa-file-excel-o"></i> Download Presensi</a>
             </div>
             <div class="box-body">
                 <table class="table table-bordered">

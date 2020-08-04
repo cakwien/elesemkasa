@@ -228,7 +228,7 @@ session_start();
 <!-- Morris.js charts -->
 
 <!-- 
-<script src="bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+<script src="../assets/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
  -->
 
 <!-- Slimscroll -->

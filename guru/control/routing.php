@@ -41,6 +41,28 @@ if (!empty($_GET['p']))
             $input2=$alert->alertmateri($con,$id_ampu);
         }
         
+        if (!empty($_GET['edit']))
+        {
+            $id_materi=$_GET['edit'];
+            $dt=$materi->editmateri($con,$id_materi);
+            $judul=$dt['judul'];
+            $ket=$dt['ket'];
+            $file=$dt['file'];
+            $link=$dt['link'];
+            $expired=$dt['expired'];
+            $sts=$dt['sts'];
+        } else
+        {
+            $judul="";
+            $ket="";
+            $file="";
+            $link="";
+            $expired="";
+            $sts="";
+        }
+        
+        
+        
         include('view/guru.php');
     }
     
@@ -53,19 +75,18 @@ if (!empty($_GET['p']))
     else if ($p=='diskusi')
     {
         $id_materi = $_GET['id_materi'];
-        $dis=$diskusi->tpdiskusi($con,$id_materi);
+       $dis=$diskusi->tpdiskusi($con,$id_materi);
         $jml_reply=$diskusi->hitungreply($con,$dis['id_post']);
         
         if (!empty($_POST['reply']))
         {
             $id_user=$_POST['id_user'];
-            $id_post=$dis['id_post'];
-            $id_kelas=$dis['id_kelas'];
+            $id_post=$_POST['id_post'];
             $time=time();
             $isi=$_POST['reply'];
             $tipe="0";
-            $input=$diskusi->tbreply($con,$id_post,$id_user,$time,$isi,$tipe,$id_materi);
-            $input2=$alert->alert_reply_siswa($con,$id_kelas,$id_post);
+            $input=$diskusi->tambahreply($con,$id_post,$id_user,$time,$isi,$tipe);
+            //$input2=$alert->alert_reply_siswa($con,$id_kelas,$id_post);
         }
         
         include('view/guru.php');
