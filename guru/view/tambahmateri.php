@@ -10,7 +10,7 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label>Judul Materi :</label>
-                            <input type="text" name="id_materi" value="<?=$id_materi?>">
+                            <input type="hidden" name="update" value="<?=$id_materi?>">
                             <input type="text" name="judul" class="form-control" placeholder="Judul Materi..." required value="<?=$judul?>">
                         </div>
                         <div class="form-group">
@@ -19,8 +19,9 @@
                         </div>
                       
                         <div class="form-group">
-                            <label>Upload File :</label>
-                            <input type="file" name="berkas" class="form-control" value="<?=$file?>">
+                            <label>Upload File : <?php if(!empty($file)) {echo '<a class="btn-xs btn-danger">'.$file.'</a>';} else {echo"";} ?></label>
+                            <input type="hidden" name="berkaslawas" value="<?=$file?>">
+                            <input type="file" name="berkas" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Link :</label>
@@ -28,7 +29,8 @@
                         </div>
                         <div class="form-group">
                             <label>Batas Akhir Materi : <?php if(!empty($expired)){  echo '<span class="btn-sm btn-danger">'.date('d/m/Y H.i',$expired).'</span>'; }else { echo "";}?></label>
-                            <input type="datetime-local" name="expired" class="form-control" value="<?=date('d/m/Y H.i',$expired)?>" required>
+                            <input type="text" name="expired2" class="form-control" value="<?=$expired?>" required>
+                            <input type="datetime-local" name="expired" class="form-control" value="<?=date('d/m/Y H.i',$expired)?>" >
                         </div>
                         <div class="form-group">
                             <label>Status Materi :</label>
@@ -46,11 +48,11 @@
                                 </label>
                             </div> 
                         </div>
-                        <?php if(!empty($_GET['edit']))
+                        <?php if(!empty($id_materi))
                             {
-                                echo '<button type="submit" class="btn btn-success pull-right"><i class="fa fa-save"> </i> <b>Edit Materi</b></button>';
+                                echo '<input type="submit" name="up" value="Update Materi" class="btn btn-primary pull-right">';
                             }
-                                else { echo '<button class="btn btn-success pull-right"><i class="fa fa-save"> </i> <b>Tambah Materi</b></button>';}
+                                else { echo '<input type="submit" name="simpan" value="Update Materi" class="btn btn-primary pull-right">';}
                             ?>
                         
                         <a class="btn btn-danger" href="?p=mapel&id_ampu=<?php echo $_GET['id_ampu']; ?>"><i class="fa fa-arrow-circle-left"></i> <b>Kembali</b></a>

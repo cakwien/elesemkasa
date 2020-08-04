@@ -25,7 +25,7 @@ if (!empty($_GET['p']))
         $id_ampu = $_GET['id_ampu'];
         $mp = $mapel->mapelampu($con,$id_ampu);
         
-        if (!empty($_POST['judul']))
+        if (!empty($_POST['simpan']))
         {
             $id_ampu=$_GET['id_ampu'];
             $judul=$_POST['judul'];
@@ -62,7 +62,38 @@ if (!empty($_GET['p']))
             $id_materi="";
         }
         
-     //   if(!empty($_POST['id']))
+        if (!empty($_POST['up']))
+        {
+            if (!empty($_POST['berkas']))
+            {
+                $id_materi=$_GET['edit'];
+                $judul=$_POST['judul'];
+                $ket=$_POST['ket'];
+                $berkas=$_FILES['berkas']['name'];
+                $tmp_files=$_FILES['berkas']['tmp_name'];
+                $expired=$_POST['expired'];
+                $sts=$_POST['status'];
+                $link=$_POST['link'];
+                $berkaslawas=$_POST['berkaslawas'];
+                $input=$materi->update_upload($con,$id_ampu,$judul,$ket,$link,$berkas,$expired,$sts,$berkaslawas,$tmp_files,$id_materi);
+            } else
+            {
+                $id_materi=$_GET['edit'];
+                $judul=$_POST['judul'];
+                $ket=$_POST['ket'];
+                if (!empty($_POST['expired']))
+                {
+                    $expired=strtotime($_POST['expired']);
+                }else
+                {
+                    $expired=strtotime($_POST['expired2']);
+                }
+                $sts=$_POST['status'];
+                $link=$_POST['link'];
+                $input=$materi->update($con,$id_ampu,$judul,$ket,$link,$expired,$sts,$id_materi);
+            }
+        }
+     
         
         
         

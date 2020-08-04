@@ -118,7 +118,7 @@ class materi
         }
     }
     
-    function update($con,$id_ampu,$judul,$ket,$link,$expired,$sts,$tmp_files,$id_materi)
+    function update($con,$id_ampu,$judul,$ket,$link,$expired,$sts,$id_materi)
     {
         $q=mysqli_query($con,"update materi set id_ampu = '$id_ampu',judul='$judul',ket='$ket',link='$link',sts='$sts',expired='$expired' where id_materi = '$id_materi'");
         if ($q)
