@@ -101,6 +101,35 @@ class materi
         $dt=mysqli_fetch_array($q);
         return $dt;
     }
+    
+    function update_upload($con,$id_ampu,$judul,$ket,$link,$berkas,$expired,$sts,$berkaslawas,$tmp_files,$id_materi)
+    {
+      //  $a=mysqli_query($con,"select file from materi where id_materi = '$id_materi'");
+        //$fileupdate=mysqli_fetch_array($a);
+        $q=mysqli_query($con,"update materi set id_ampu = '$id_ampu',judul='$judul',ket='$ket',link='$link',sts='$sts',expired='$expired',file='$berkas' where id_materi = '$id_materi'");
+        if($q)
+        {
+           unlink('../file/'.$berkaslawas);
+            move_uploaded_file($tmp_files, '/file/'.$berkas);
+           echo '<script>window.alert("Materi dengan Lampiran berhasil di Edit");window.location.href="?p=mapel&id_ampu='.$id_ampu.'"</script>';  
+        }else
+        {
+          echo '<script>window.alert("Materi Gagal di Edit");window.location.href=""</script>';
+        }
+    }
+    
+    function update($con,$id_ampu,$judul,$ket,$link,$expired,$sts,$tmp_files,$id_materi)
+    {
+        $q=mysqli_query($con,"update materi set id_ampu = '$id_ampu',judul='$judul',ket='$ket',link='$link',sts='$sts',expired='$expired' where id_materi = '$id_materi'");
+        if ($q)
+        {
+            echo '<script>window.alert("Materi berhasil di Edit");window.location.href="?p=mapel&id_ampu='.$id_ampu.'"</script>';
+        }
+        else
+        {
+            echo '<script>window.alert("Materi Gagal di Edit");window.location.href=""</script>';
+        }
+    }
   
     
 }

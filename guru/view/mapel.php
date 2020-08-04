@@ -13,8 +13,10 @@
                   <b>Jumlah Materi : </b><b class="btn-sm btn-danger"><?= $jm['jumlah_materi'] ?></b>
                 </li>
               </ul>
-
-              <a href="?p=materi&id_ampu=<?php echo $mp['id_ampu']; ?>" class="btn btn-primary pull-right"><b>Tambah Materi</b></a>
+                <a class="btn btn-danger" href="?p=main"><i class="fa fa-arrow-circle-left"></i> <b>Kembali</b></a>
+              <a href="?p=materi&id_ampu=<?php echo $mp['id_ampu']; ?>" class="btn btn-primary pull-right">
+                  <i class="fa fa-plus-circle"></i>  
+                  <b>Tambah Materi</b></a>
             </div>
             <!-- /.box-body -->
           </div>

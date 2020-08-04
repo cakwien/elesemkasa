@@ -43,14 +43,14 @@ if (!empty($_GET['p']))
         
         if (!empty($_GET['edit']))
         {
-            $id_materi=$_GET['edit'];
-            $dt=$materi->editmateri($con,$id_materi);
+            $dt=$materi->editmateri($con,$_GET['edit']);
             $judul=$dt['judul'];
             $ket=$dt['ket'];
             $file=$dt['file'];
             $link=$dt['link'];
             $expired=$dt['expired'];
             $sts=$dt['sts'];
+            $id_materi=$dt['id_materi'];
         } else
         {
             $judul="";
@@ -59,7 +59,10 @@ if (!empty($_GET['p']))
             $link="";
             $expired="";
             $sts="";
+            $id_materi="";
         }
+        
+     //   if(!empty($_POST['id']))
         
         
         

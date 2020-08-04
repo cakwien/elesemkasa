@@ -10,6 +10,7 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label>Judul Materi :</label>
+                            <input type="text" name="id_materi" value="<?=$id_materi?>">
                             <input type="text" name="judul" class="form-control" placeholder="Judul Materi..." required value="<?=$judul?>">
                         </div>
                         <div class="form-group">
@@ -31,16 +32,17 @@
                         </div>
                         <div class="form-group">
                             <label>Status Materi :</label>
+                        
                             <div class="radio">
                                 <label>
-                                <input type="radio" name="status" id="optionsRadios1" value="1" <?php if($sts = 0){ echo "checked";}else{ echo "";}  ?>required>
+                                <input type="radio" name="status" id="optionsRadios1" value="1" <?php if($sts == 1){ echo "checked=checked";}else{ echo "";}  ?>required>
                                     Publikasi
                                 </label>
                             </div> 
                             <div class="radio">
                                 <label>
-                                <input type="radio" name="status" id="optionsRadios1" value="0" <?php if($sts = 1){ echo "checked";}else{ echo "";}  ?> required>
-                                    Arsip
+                                <input type="radio" name="status" id="optionsRadios1" value="0" <?php if($sts == 0){ echo "checked=checked";}else{ echo "";}  ?> required>
+                                    Arsip 
                                 </label>
                             </div> 
                         </div>
